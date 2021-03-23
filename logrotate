@@ -1,0 +1,5 @@
+cat /etc/cron.daily/logrotate
+cat /etc/logrotate.conf
+cd /etc/logrotate.d
+cat syslog
+cd /var/log-----------------all logs stored
