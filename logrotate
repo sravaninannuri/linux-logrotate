@@ -3,3 +3,72 @@ cat /etc/logrotate.conf
 cd /etc/logrotate.d
 cat syslog
 cd /var/log-----------------all logs stored
+vi /etc/rsyslog.conf------------you can find rsyslogs here
+cd /var/log----secure--------------authentication related messages and errors like ssh
+           ----boot.log------------system start up messages
+           --------messages------messages related to authentication and email,cronjobs etc
+           -----cron -------cron log related to execution of cron jobs
+           -----maillog--logs related to mailserver
+pstree | less
+
+systemd-analyze ------------how much time machine had taken to boot up
+
+systemd-analyze blame-------------------to know time taken by individual processers
+
+log files needs to be rotated(lod entries  removed)on periodic bases.so dont become too large
+
+logrotate is the package which control automatic rotation of log files,as per configuration in /etc/logrotate.conf
+                                                                                              -------------------------------
+and then it sees for individual server files under /etc/logrotate.d directory
+
+incase some application wants a different log rotation scheme
+
+rpmquery logrotate
+
+man rsyslog.conf
+
+in rhel 7,log files ARE ALSO MANAGED BY :JOURNALD: DAEMON
+journald is the component of systemd
+
+journal captures:
+      
+      - syslog messages
+      - kernal log
+      -intial RAM disk
+      - early boot messages
+      -standard errors and outputs of all services
+      
+journald uses " native journal file format" which improves searching : and provide faster operation
+
+log files are created by journald by not permenent/persistent
+
+they are stored in a small memory (kernal ring buffer) under /run/log/journal
+
+it is very limited space
+
+
+journalctl-------------command
+
+journalctl -p err
+journalctl -p debug
+journalctl -p emerg
+journalctl -o verbose
+journalctl -o export--------to convert binary
+journalctl -o json--------show in json format
+man journalctl
+journactl _SYSTEM_UNIT=sshd.service------------will show all system sshd issues
+timedatectl-----------------will show time
+timedatectl list-tiomezones
+
+timedatectl set-timezone timezonename
+timedatectl set-ntp true
+
+vi /etc/chrony.conf --------------use time ntp
+systemctl restart chronyd.service
+chronyc sources -v
+
+
+
+      
+                                                                                              
+
